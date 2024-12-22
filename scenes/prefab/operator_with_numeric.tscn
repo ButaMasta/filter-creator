@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq7ixsfx70u7o"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/operator_with_numeric.gd" id="1_53a87"]
+
+[node name="OperatorWithNumeric" type="HBoxContainer" node_paths=PackedStringArray("label", "numeric")]
+offset_right = 122.0
+offset_bottom = 31.0
+script = ExtResource("1_53a87")
+label = NodePath("Label")
+numeric = NodePath("Numeric/Label")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "No Label"
+
+[node name="Spacer" type="Control" parent="."]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Operator" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Operator"]
+layout_mode = 2
+text = "Operator"
+horizontal_alignment = 1
+
+[node name="Operator" type="OptionButton" parent="Operator"]
+layout_mode = 2
+size_flags_horizontal = 4
+selected = 1
+item_count = 6
+popup/item_0/text = ">"
+popup/item_0/id = 3
+popup/item_1/text = ">="
+popup/item_1/id = 1
+popup/item_2/text = "=="
+popup/item_2/id = 2
+popup/item_3/text = "<="
+popup/item_3/id = 1
+popup/item_4/text = "<"
+popup/item_4/id = 4
+popup/item_5/text = "!"
+popup/item_5/id = 5
+
+[node name="Numeric" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Numeric"]
+layout_mode = 2
+text = "Numeric"
+horizontal_alignment = 1
+
+[node name="Value" type="LineEdit" parent="Numeric"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "0"
+
+[connection signal="item_selected" from="Operator/Operator" to="." method="_on_operator_item_selected"]
+[connection signal="text_submitted" from="Numeric/Value" to="." method="_on_value_text_submitted"]

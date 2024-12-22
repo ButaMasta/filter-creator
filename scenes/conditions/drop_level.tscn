@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhak0ayt7yt3x"]
+
+[ext_resource type="Script" path="res://scripts/conditions/drop_level.gd" id="1_0ccmw"]
+[ext_resource type="PackedScene" uid="uid://bq7ixsfx70u7o" path="res://scenes/prefab/operator_with_numeric.tscn" id="2_5qcfk"]
+
+[node name="DropLevel" type="Control" node_paths=PackedStringArray("operator_with_numeric")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0ccmw")
+operator_with_numeric = NodePath("OperatorWithNumeric")
+
+[node name="OperatorWithNumeric" parent="." instance=ExtResource("2_5qcfk")]
+layout_mode = 0
+
+[connection signal="numeric_change" from="OperatorWithNumeric" to="." method="_on_operator_with_numeric_numeric_change"]
+[connection signal="operator_change" from="OperatorWithNumeric" to="." method="_on_operator_with_numeric_operator_change"]

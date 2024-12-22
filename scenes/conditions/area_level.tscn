@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccrcch1p2h0i"]
+
+[ext_resource type="Script" path="res://scripts/conditions/area_level.gd" id="1_0471j"]
+[ext_resource type="PackedScene" uid="uid://bq7ixsfx70u7o" path="res://scenes/prefab/operator_with_numeric.tscn" id="2_i4ku1"]
+
+[node name="AreaLevel" type="HBoxContainer" node_paths=PackedStringArray("operator_with_numeric")]
+offset_right = 175.0
+offset_bottom = 58.0
+theme_override_constants/separation = 10
+script = ExtResource("1_0471j")
+operator_with_numeric = NodePath("OperatorWithNumeric")
+
+[node name="OperatorWithNumeric" parent="." instance=ExtResource("2_i4ku1")]
+layout_mode = 2
+
+[connection signal="numeric_change" from="OperatorWithNumeric" to="." method="_on_operator_with_numeric_numeric_change"]
+[connection signal="operator_change" from="OperatorWithNumeric" to="." method="_on_operator_with_numeric_operator_change"]

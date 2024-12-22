@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://djibfeuit6trv"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/operator_with_value.gd" id="1_ejkjf"]
+
+[node name="OperatorWithValue" type="HBoxContainer" node_paths=PackedStringArray("label", "value_label", "value_selector")]
+offset_right = 174.0
+offset_bottom = 31.0
+script = ExtResource("1_ejkjf")
+label = NodePath("Label")
+value_label = NodePath("Options/Label")
+value_selector = NodePath("Options/Value")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "No Label"
+
+[node name="Spacer" type="Control" parent="."]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Operator" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Operator"]
+layout_mode = 2
+text = "Operator"
+horizontal_alignment = 1
+
+[node name="Operator" type="OptionButton" parent="Operator"]
+layout_mode = 2
+size_flags_horizontal = 4
+selected = 1
+item_count = 6
+popup/item_0/text = ">"
+popup/item_1/text = ">="
+popup/item_1/id = 1
+popup/item_2/text = "=="
+popup/item_2/id = 2
+popup/item_3/text = "<="
+popup/item_3/id = 3
+popup/item_4/text = "<"
+popup/item_4/id = 4
+popup/item_5/text = "!"
+popup/item_5/id = 5
+
+[node name="Options" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Options"]
+layout_mode = 2
+text = "Values"
+horizontal_alignment = 1
+
+[node name="Value" type="OptionButton" parent="Options"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[connection signal="item_selected" from="Operator/Operator" to="." method="_on_operator_item_selected"]
+[connection signal="item_selected" from="Options/Value" to="." method="_on_value_item_selected"]

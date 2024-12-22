@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://f46efv0tdxhl"]
+
+[ext_resource type="Script" path="res://scripts/conditions/rarity.gd" id="1_o7mj8"]
+[ext_resource type="PackedScene" uid="uid://djibfeuit6trv" path="res://scenes/prefab/operator_with_value.tscn" id="2_b4p1v"]
+
+[node name="Rarity" type="Control" node_paths=PackedStringArray("operator_with_value")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o7mj8")
+operator_with_value = NodePath("OperatorWithValue")
+
+[node name="OperatorWithValue" parent="." instance=ExtResource("2_b4p1v")]
+layout_mode = 0
+
+[connection signal="operator_change" from="OperatorWithValue" to="." method="_on_operator_with_value_operator_change"]
+[connection signal="value_change" from="OperatorWithValue" to="." method="_on_operator_with_value_value_change"]

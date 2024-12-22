@@ -1,0 +1,202 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu6utw33qy8f1"]
+
+[ext_resource type="Script" path="res://scripts/tab_container.gd" id="1_7hx6o"]
+[ext_resource type="Script" path="res://scripts/filter.gd" id="3_d4rl7"]
+[ext_resource type="Script" path="res://scripts/editor.gd" id="3_kdi5k"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+script = ExtResource("1_7hx6o")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="TabContainer"]
+layout_mode = 2
+split_offset = 500
+metadata/_tab_index = 0
+
+[node name="MarginContainerLeft" type="MarginContainer" parent="TabContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Filter" type="VBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerLeft" node_paths=PackedStringArray("files", "confirm", "filter_list", "editor")]
+layout_mode = 2
+script = ExtResource("3_d4rl7")
+files = NodePath("FileDialog")
+confirm = NodePath("ConfirmationDialog")
+filter_list = NodePath("ScrollContainer/FilterList")
+editor = NodePath("../../MarginContainerRight/Editor")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter"]
+layout_mode = 2
+
+[node name="TopLabel" type="Label" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "    Create or Import Filter"
+vertical_alignment = 1
+
+[node name="ImportButton" type="Button" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter/HBoxContainer"]
+layout_mode = 2
+text = "Import"
+
+[node name="CreateButton" type="Button" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter/HBoxContainer"]
+layout_mode = 2
+text = "Create"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FilterList" type="VBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AddNewOption" type="HBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Save" type="Button" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter/AddNewOption"]
+layout_mode = 2
+text = "Save Filter"
+
+[node name="Spacer" type="Control" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter/AddNewOption"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Add" type="Button" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter/AddNewOption"]
+layout_mode = 2
+text = "Add Filter Option"
+
+[node name="FileDialog" type="FileDialog" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter"]
+position = Vector2i(150, 150)
+size = Vector2i(500, 400)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.filter;Filter Files")
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="TabContainer/HSplitContainer/MarginContainerLeft/Filter"]
+initial_position = 1
+size = Vector2i(399, 106)
+ok_button_text = "Delete"
+dialog_text = "Are you sure you want to delete this filter option?"
+
+[node name="MarginContainerRight" type="MarginContainer" parent="TabContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="Editor" type="VBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerRight" node_paths=PackedStringArray("name_edit", "visibility", "rarity_operator", "rarity")]
+layout_mode = 2
+script = ExtResource("3_kdi5k")
+name_edit = NodePath("HBoxContainer/NameContainer/Name")
+visibility = NodePath("HBoxContainer/VisibilityContainer/Visibility")
+rarity_operator = NodePath("HBoxContainer/RarityContainer2/RarityOptions/Operator")
+rarity = NodePath("HBoxContainer/RarityContainer2/RarityOptions/Rarity")
+
+[node name="TopLabel" type="Label" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor"]
+layout_mode = 2
+text = "Select a filter option then edit it here."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="NameContainer" type="VBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/NameContainer"]
+layout_mode = 2
+text = "Name"
+
+[node name="Name" type="LineEdit" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/NameContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+editable = false
+
+[node name="VisibilityContainer" type="VBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/VisibilityContainer"]
+layout_mode = 2
+text = "Visibility"
+
+[node name="Visibility" type="OptionButton" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/VisibilityContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+disabled = true
+item_count = 2
+popup/item_0/text = "Show"
+popup/item_1/text = "Hide"
+popup/item_1/id = 1
+
+[node name="RarityContainer2" type="VBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/RarityContainer2"]
+layout_mode = 2
+text = "Rarity"
+
+[node name="RarityOptions" type="HBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/RarityContainer2"]
+layout_mode = 2
+
+[node name="Operator" type="OptionButton" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/RarityContainer2/RarityOptions"]
+layout_mode = 2
+size_flags_horizontal = 0
+disabled = true
+item_count = 6
+popup/item_0/text = ">"
+popup/item_0/id = 3
+popup/item_1/text = ">="
+popup/item_1/id = 1
+popup/item_2/text = "=="
+popup/item_2/id = 2
+popup/item_3/text = "<="
+popup/item_3/id = 1
+popup/item_4/text = "<"
+popup/item_4/id = 4
+popup/item_5/text = "!"
+popup/item_5/id = 5
+
+[node name="Rarity" type="OptionButton" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/RarityContainer2/RarityOptions"]
+layout_mode = 2
+size_flags_horizontal = 0
+disabled = true
+item_count = 4
+popup/item_0/text = "Normal"
+popup/item_1/text = "Magic"
+popup/item_1/id = 1
+popup/item_2/text = "Rare"
+popup/item_2/id = 2
+popup/item_3/text = "Unique"
+popup/item_3/id = 3
+
+[node name="RarityContainer" type="VBoxContainer" parent="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="TabContainer/HSplitContainer/MarginContainerLeft/Filter/HBoxContainer/ImportButton" to="TabContainer/HSplitContainer/MarginContainerLeft/Filter" method="_on_import_button_pressed"]
+[connection signal="pressed" from="TabContainer/HSplitContainer/MarginContainerLeft/Filter/HBoxContainer/CreateButton" to="TabContainer/HSplitContainer/MarginContainerLeft/Filter" method="_on_create_button_pressed"]
+[connection signal="pressed" from="TabContainer/HSplitContainer/MarginContainerLeft/Filter/AddNewOption/Save" to="TabContainer/HSplitContainer/MarginContainerLeft/Filter" method="_on_save_pressed"]
+[connection signal="pressed" from="TabContainer/HSplitContainer/MarginContainerLeft/Filter/AddNewOption/Add" to="TabContainer/HSplitContainer/MarginContainerLeft/Filter" method="_on_add_pressed"]
+[connection signal="file_selected" from="TabContainer/HSplitContainer/MarginContainerLeft/Filter/FileDialog" to="TabContainer/HSplitContainer/MarginContainerLeft/Filter" method="_on_file_dialog_file_selected"]
+[connection signal="canceled" from="TabContainer/HSplitContainer/MarginContainerLeft/Filter/ConfirmationDialog" to="TabContainer/HSplitContainer/MarginContainerLeft/Filter" method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="TabContainer/HSplitContainer/MarginContainerLeft/Filter/ConfirmationDialog" to="TabContainer/HSplitContainer/MarginContainerLeft/Filter" method="_on_confirmation_dialog_confirmed"]
+[connection signal="text_submitted" from="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/NameContainer/Name" to="TabContainer/HSplitContainer/MarginContainerRight/Editor" method="_on_name_text_submitted"]
+[connection signal="item_selected" from="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/VisibilityContainer/Visibility" to="TabContainer/HSplitContainer/MarginContainerRight/Editor" method="_on_visibility_item_selected"]
+[connection signal="item_selected" from="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/RarityContainer2/RarityOptions/Operator" to="TabContainer/HSplitContainer/MarginContainerRight/Editor" method="_on_rarity_operator_item_selected"]
+[connection signal="item_selected" from="TabContainer/HSplitContainer/MarginContainerRight/Editor/HBoxContainer/RarityContainer2/RarityOptions/Rarity" to="TabContainer/HSplitContainer/MarginContainerRight/Editor" method="_on_rarity_item_selected"]
